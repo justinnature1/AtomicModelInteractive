@@ -2,7 +2,8 @@ package application;
 
 public class Physics {
 
-	public static double electricalForce(double k, double Q1, double Q2, double distance) {
+	public static double electricalForce(double Q1, double Q2, double distance) {
+		double k = 9E9;
 		double force = (k * Math.abs(Q1) * Math.abs(Q2) / Math.pow(distance, 2));
 		if ((Q1 >= 0 && Q2 < 0) || (Q2 >= 0 && Q1 < 0))
 			return -force;
@@ -33,4 +34,5 @@ public class Physics {
 	public static double hypothenuseLen(double a, double b) {
 		return Math.pow(Math.pow(a, 2) + Math.pow(b, 2),.5);
 	}
+	
 }

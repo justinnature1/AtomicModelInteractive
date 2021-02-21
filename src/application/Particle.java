@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class Particle {
-
 	
 	protected double x;
 	protected double y;
@@ -13,12 +12,13 @@ public abstract class Particle {
 	protected Image image = null; 
 	protected double yAcc = 0;
 	protected double xAcc = 0;
+	protected Move move;
+	protected double charge = 1.6E-19;
+	protected double mass = 1.67E-27;
 	
-	public Particle(double x, double y, double xSpeed, double ySpeed){
+	public Particle(double x, double y){
 		this.x = x;
 		this.y = y;
-		this.xSpeed = xSpeed;
-		this.ySpeed = ySpeed;
 	}
 	
 	public int getX() {
@@ -38,7 +38,7 @@ public abstract class Particle {
 		gc.drawImage(image, x, y);
 	}
 
-	public void update(double elapsedTime, ShotParticle a) {
+	public void update(double elapsedTime, AlphaParticle a) {
 		this.xAcc = this.yAcc = 0;
 		this.setXAccelerate(a);
 		this.setYAccelerate(a);
@@ -61,19 +61,19 @@ public abstract class Particle {
 			return force;
 	}
 
-	public void setXAccelerate(ShotParticle a) {
+	public void setXAccelerate(AlphaParticle a) {
 		this.xAcc = calcForce(getDistance(a),true) * Math.cos(getAngle(a)*Math.PI/180);
 	}
 
-	public void setYAccelerate(ShotParticle a) {
+	public void setYAccelerate(AlphaParticle a) {
 		this.yAcc = calcForce(getDistance(a),true) * Math.sin(getAngle(a)*Math.PI/180);
 	}
 
-	public double getAngle (ShotParticle a) {
+	public double getAngle (AlphaParticle a) {
 		return Math.toDegrees(Math.atan2(a.y - this.y, a.x - this.x));
 	}
 
-	public double getDistance (ShotParticle a) {
+	public double getDistance (AlphaParticle a) {
 		return Math.pow(Math.pow(this.x - a.x, 2) + Math.pow(this.y - a.y, 2),.5);
 	}
 	//protected Move move;
