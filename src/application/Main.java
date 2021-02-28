@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -13,9 +14,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -29,42 +33,32 @@ public class Main extends Application {
 	public void start(Stage theStage) {
 		theStage.setTitle( "Atoms: Solid or Empty?" );
 
-		Group root = new Group();
+		HBox root = new HBox();
 		Scene theScene = new Scene( root );
 		theStage.setScene( theScene );
 
-		Canvas canvas = new Canvas( 512, 512 );
-		root.getChildren().add( canvas );
-
-		GraphicsContext gc = canvas.getGraphicsContext2D();
+		Canvas gameCanvas = new Canvas(512, 512);
+		GraphicsContext gc = gameCanvas.getGraphicsContext2D();
+		Separator separator = new Separator(Orientation.VERTICAL);
+		Canvas dataCanvas = new Canvas(150,512);
+		root.getChildren().addAll( gameCanvas, separator, dataCanvas );
 
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
 		ArrayList <AlphaParticle> alphaParticles = new ArrayList<AlphaParticle>();
 
-        theScene.setOnMousePressed(
-                
-        		new EventHandler<MouseEvent>()
-                {
-                    public void handle(MouseEvent e)
-                    {
-                    	System.out.println(e.getX() + " " + e.getY());
-                    	int xCannon = 250;
-                    	int yCannon = 500;
-                    	int xDiff = (int)e.getX()-xCannon;
-                    	int yDiff = (int)e.getY()-yCannon;
-                    	int xSpeed = (int) (125*(xDiff)/(Math.pow(xDiff*xDiff+yDiff*yDiff,.5)));
-                    	int ySpeed = (int) (125*(yDiff)/(Math.pow(xDiff*xDiff+yDiff*yDiff,.5)));
-                    	alphaParticles.add(new AlphaParticle(250, 500, xSpeed, ySpeed));
-//                        String code = e.getCode().toString();
-//                        if ( !alphaParticles )
-//                            alphaParticles.add( code );
-                    }
-                });
+		ArrayList <Particle> nuclei = new ArrayList<>();
+		LevelOne level = new LevelOne(nuclei);
+		try {
+			level.construct();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
-        ArrayList <Particle> nuclei = new ArrayList<>();
-        nuclei.add(new Nucleus(250, 250, true));
-        nuclei.add(new Nucleus(100, 100, false));
+		ParticleCannon cannon = new ParticleCannon(250, 490, alphaParticles);
+		
+        gameCanvas.setOnMousePressed(cannon::handle);
+        gameCanvas.setOnMouseMoved(cannon::handle);
 
 		new AnimationTimer()
 		{
@@ -74,17 +68,18 @@ public class Main extends Application {
 				lastNanoTime.value = currentNanoTime;	 
 				gc.clearRect(0, 0, 512, 512);
 				
+				cannon.draw(gc);
+				
 				for (Particle nucleus : nuclei) {
 					nucleus.move.move(null, elapsedTime);
-					gc.strokeOval(nucleus.x, nucleus.y, 3, 3);					
+					nucleus.draw(gc);					
 				}
 
-				for (int i = 0; i < alphaParticles.size(); i++) {
+				for (Particle alphaParticle: alphaParticles) {
 					for (Particle nucleus : nuclei) {
-						alphaParticles.get(i).move.move(nucleus,elapsedTime);	
+						alphaParticle.move.move(nucleus,elapsedTime);	
 					}
-					gc.strokeOval(alphaParticles.get(i).x, alphaParticles.get(i).y, 5, 5);
-					gc.fillOval(alphaParticles.get(i).x, alphaParticles.get(i).y, 5, 5);
+					alphaParticle.draw(gc);
 				}
 				//b.render(gc);
 			}

@@ -1,8 +1,8 @@
 package application;
 
-public abstract class ParticleCreator {
-	
-	abstract Particle create();
-	abstract void add();
-	
+public interface ParticleCreator {
+	public double getX();
+	public double getY();
+	public double getXSpeed();
+	public double getYSpeed();
 }

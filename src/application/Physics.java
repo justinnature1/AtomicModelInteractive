@@ -11,12 +11,12 @@ public class Physics {
 			return force;
 	}
 	
-	public static double xForce(double force, double radians) {
-		return force * Math.cos(radians);
+	public static double xComponent(double value, double radians) {
+		return value * Math.cos(radians);
 	}
 	
-	public static double yForce(double force, double radians) {
-		return force * Math.sin(radians);
+	public static double yComponent(double value, double radians) {
+		return value * Math.sin(radians);
 	}
 	
 	public static double acceleration(double force, double mass) {

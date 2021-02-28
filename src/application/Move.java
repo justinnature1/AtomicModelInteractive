@@ -18,16 +18,18 @@ public abstract class Move {
 		xAcc = yAcc = 0;
 		setAcceleration (neighbor);
 		changeSpeed(elapsedTime);
-	}
-	
-	protected void changeSpeed (double time) {
-		xSpeed = xSpeed + xAcc * time;
-		ySpeed = ySpeed + yAcc * time;
-		particle.x += xSpeed * time;
-		particle.y += ySpeed * time;
-
+		changePosition(elapsedTime);
 	}
 	
 	abstract void setAcceleration(Particle neighbor);
 	
+	protected void changeSpeed (double time) {
+		xSpeed = xSpeed + xAcc * time;
+		ySpeed = ySpeed + yAcc * time;
+	}
+	
+	protected void changePosition (double time) {
+		particle.x += xSpeed * time;
+		particle.y += ySpeed * time;
+	}
 }
