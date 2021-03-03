@@ -1,4 +1,4 @@
-package application;
+package mvc;
 public class LongValue
 {
     public long value;

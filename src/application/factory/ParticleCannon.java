@@ -2,7 +2,6 @@ package application.factory;
 
 import java.util.ArrayList;
 
-import application.Drawable;
 import application.observer.AlphaParticle;
 import application.observer.CollisionData;
 import application.templateMethod.Physics;
@@ -10,7 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 
-public class ParticleCannon implements ParticleCreator, EventHandler<MouseEvent>, Drawable {
+public class ParticleCannon implements ParticleCreator, Drawable {
 	//	Scene scene;
 
 	ArrayList <AlphaParticle> alphaparticles;
@@ -57,12 +56,12 @@ public class ParticleCannon implements ParticleCreator, EventHandler<MouseEvent>
 		return mouseX;
 	}
 
-	protected void setMouseX(double mouseX) {
+	public void setMouseX(double mouseX) {
 		this.mouseX = mouseX;
 		this.setDiffX();
 	}
 
-	protected void setMouseY(double mouseY) {
+	public void setMouseY(double mouseY) {
 		this.mouseY = mouseY;
 		this.setDiffY();
 	}
@@ -85,15 +84,19 @@ public class ParticleCannon implements ParticleCreator, EventHandler<MouseEvent>
 		return (this.fireSpeed*this.diffY/Physics.hypothenuseLen(diffX, diffY));
 	}
 
-
-	public void handle(MouseEvent e)
-	{
-		setMouseX(e.getX());
-		setMouseY(e.getY());
-		if (e.isPrimaryButtonDown())
-			alphaparticles.add(pf.create());
-		
+	public void create() {
+		AlphaParticle newParticle = pf.create();
+		alphaparticles.add(pf.create());
 	}
+	
+//	public void handle(MouseEvent e)
+//	{
+//		setMouseX(e.getX());
+//		setMouseY(e.getY());
+//		if (e.isPrimaryButtonDown())
+//			alphaparticles.add(pf.create());
+//		
+//	}
 
 	public void draw(GraphicsContext gc) {
 		gc.save();

@@ -1,4 +1,4 @@
-package application;
+package application.factory;
 
 import javafx.scene.canvas.GraphicsContext;
 

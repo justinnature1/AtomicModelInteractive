@@ -1,7 +1,5 @@
 package application.observer;
 
-import javafx.scene.image.Image;
-
 public class CollisionData implements Observer{
 	boolean[] data = new boolean[20];
 	private static int particleCount = 1;

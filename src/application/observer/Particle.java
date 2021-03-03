@@ -2,7 +2,7 @@ package application.observer;
 
 import java.util.ArrayList;
 
-import application.Drawable;
+import application.factory.Drawable;
 import application.templateMethod.Move;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
