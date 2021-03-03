@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import application.factory.NucleusFactory;
+import application.factory.ParticleCreator;
+import application.observer.Particle;
 import javafx.scene.chart.PieChart.Data;
 
 public class LevelOne implements ParticleCreator {

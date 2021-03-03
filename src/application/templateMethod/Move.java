@@ -1,4 +1,6 @@
-package application;
+package application.templateMethod;
+
+import application.observer.Particle;
 
 public abstract class Move {
 	protected Particle particle;
@@ -29,7 +31,7 @@ public abstract class Move {
 	}
 	
 	protected void changePosition (double time) {
-		particle.x += xSpeed * time;
-		particle.y += ySpeed * time;
+		particle.setX(particle.getX() + xSpeed * time);
+		particle.setY(particle.getY() + ySpeed * time);
 	}
 }

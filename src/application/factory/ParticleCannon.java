@@ -1,6 +1,11 @@
-package application;
+package application.factory;
 
 import java.util.ArrayList;
+
+import application.Drawable;
+import application.observer.AlphaParticle;
+import application.observer.CollisionData;
+import application.templateMethod.Physics;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -28,7 +33,7 @@ public class ParticleCannon implements ParticleCreator, EventHandler<MouseEvent>
 		this.cannonX = x;
 		this.cannonY = y;
 		this.alphaparticles = alphaParticles;
-		pf = new AlphaParticleFactory(this);
+		pf = new AlphaParticleFactory(this, new CollisionData());
 	}
 
 	public double getX() {

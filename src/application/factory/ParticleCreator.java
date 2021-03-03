@@ -1,4 +1,4 @@
-package application;
+package application.factory;
 
 public interface ParticleCreator {
 	public double getX();

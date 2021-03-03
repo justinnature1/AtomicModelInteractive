@@ -7,6 +7,9 @@ import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -23,8 +26,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import application.factory.ParticleCannon;
+import application.observer.AlphaParticle;
+import application.observer.Particle;
 
-public class Main extends Application {
+
+public class View extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
@@ -32,6 +39,7 @@ public class Main extends Application {
 
 	public void start(Stage theStage) {
 		theStage.setTitle( "Atoms: Solid or Empty?" );
+		theStage.getIcons().add(new Image("file:alpha.png"));
 
 		HBox root = new HBox();
 		Scene theScene = new Scene( root );
@@ -41,7 +49,18 @@ public class Main extends Application {
 		GraphicsContext gc = gameCanvas.getGraphicsContext2D();
 		Separator separator = new Separator(Orientation.VERTICAL);
 		Canvas dataCanvas = new Canvas(150,512);
-		root.getChildren().addAll( gameCanvas, separator, dataCanvas );
+		TableView dataTable = new TableView();
+		
+		TableColumn<Particle, Integer> column1 = new TableColumn<>("Particle #");
+		column1.setCellValueFactory(new PropertyValueFactory<>("particleNumber"));
+		
+		TableColumn<Particle, Boolean> column2 = new TableColumn<>("Collision?");
+		column2.setCellValueFactory(new PropertyValueFactory<>("collision"));
+		
+		dataTable.getColumns().add(column1);
+		dataTable.getColumns().add(column2);
+		
+		root.getChildren().addAll( gameCanvas, separator, dataTable );
 
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
@@ -71,13 +90,13 @@ public class Main extends Application {
 				cannon.draw(gc);
 				
 				for (Particle nucleus : nuclei) {
-					nucleus.move.move(null, elapsedTime);
+					nucleus.move(null, elapsedTime);
 					nucleus.draw(gc);					
 				}
 
 				for (Particle alphaParticle: alphaParticles) {
 					for (Particle nucleus : nuclei) {
-						alphaParticle.move.move(nucleus,elapsedTime);	
+						alphaParticle.move(nucleus,elapsedTime);	
 					}
 					alphaParticle.draw(gc);
 				}

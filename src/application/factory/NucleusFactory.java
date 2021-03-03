@@ -1,4 +1,7 @@
-package application;
+package application.factory;
+
+import application.observer.Nucleus;
+import application.observer.Particle;
 
 public class NucleusFactory extends ParticleFactory {
 
@@ -10,7 +13,7 @@ public class NucleusFactory extends ParticleFactory {
 	}
 
 	@Override
-	Particle create() {
+	public Particle create() {
 			return new Nucleus(pc.getX(), pc.getY(), this.isMoveable());
 	}
 

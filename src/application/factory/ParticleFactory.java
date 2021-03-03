@@ -1,4 +1,6 @@
-package application;
+package application.factory;
+
+import application.observer.Particle;
 
 public abstract class ParticleFactory {
 	

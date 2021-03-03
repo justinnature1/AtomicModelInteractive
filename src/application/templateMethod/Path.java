@@ -1,4 +1,6 @@
-package application;
+package application.templateMethod;
+
+import application.observer.Particle;
 
 public class Path extends Move {
 	private double xOrigin;
@@ -6,19 +8,19 @@ public class Path extends Move {
 	
 	public Path(Particle particle, double xSpeed, double ySpeed) {
 		super(particle, xSpeed, ySpeed);
-		xOrigin = particle.x;
-		yOrigin = particle.y;
+		xOrigin = particle.getX();
+		yOrigin = particle.getY();
 	}
 
 	void setAcceleration(Particle neighbor) {
-		if (particle.x - xOrigin > 25)
+		if (particle.getX() - xOrigin > 25)
 			xAcc = -5;
-		else if (particle.x - xOrigin < -25)
+		else if (particle.getX() - xOrigin < -25)
 			xAcc = 5;
 		else
 			xAcc = 0;
 		
-		if (particle.y - yOrigin > 25 || particle.y - yOrigin < 25)
+		if (particle.getY() - yOrigin > 25 || particle.getY() - yOrigin < 25)
 			yAcc = -ySpeed;
 		else
 			yAcc = 0;

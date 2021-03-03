@@ -1,4 +1,4 @@
-package application;
+package application.templateMethod;
 
 public class Physics {
 
