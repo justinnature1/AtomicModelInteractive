@@ -1,6 +1,7 @@
 package application.factory;
 
 import application.observer.Particle;
+import application.observer.ParticleComponent;
 
 public abstract class ParticleFactory {
 	
@@ -10,6 +11,6 @@ public abstract class ParticleFactory {
 		this.pc = particleCreator;
 	}
 	
-	abstract Particle create();
+	abstract ParticleComponent create();
 	
 }

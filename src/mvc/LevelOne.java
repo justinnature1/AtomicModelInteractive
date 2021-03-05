@@ -11,6 +11,8 @@ import application.factory.ParticleCannon;
 import application.factory.ParticleCreator;
 import application.observer.AlphaParticle;
 import application.observer.Particle;
+import application.observer.ParticleComponent;
+import application.observer.Particles;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.PieChart.Data;
 import application.observer.Nucleus;
@@ -23,11 +25,13 @@ public class LevelOne extends Level implements ParticleCreator {
 	}
 
 	public void construct() throws FileNotFoundException {
-		alphaParticles = new ArrayList<AlphaParticle>();
-		nuclei = new ArrayList<>();
+		nuclei = new Particles();
+		alphaParticles = new Particles(nuclei);
+		particles = new Particles();
+		particles.add(alphaParticles);
+		particles.add(nuclei);
 		nucleusFactory = new NucleusFactory(this, true);
-		cannon = new ParticleCannon(250, 490, alphaParticles);
-		
+		cannon = new ParticleCannon(250, 490, alphaParticles, nuclei);
 		BufferedReader csvReader = new BufferedReader(new FileReader("levelOneParticles"));
 		String row;
 		try {

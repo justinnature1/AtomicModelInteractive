@@ -21,8 +21,9 @@ public class Nucleus extends Particle{
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.strokeOval(this.x, this.y, 3, 3);
+		gc.strokeOval(this.x-2, this.y-2, 4, 4);
 
 	}
+
 
 }

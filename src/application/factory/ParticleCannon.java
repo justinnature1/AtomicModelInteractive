@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import application.observer.AlphaParticle;
 import application.observer.CollisionData;
+import application.observer.Drawable;
+import application.observer.ParticleComponent;
 import application.templateMethod.Physics;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 public class ParticleCannon implements ParticleCreator, Drawable {
 	//	Scene scene;
 
-	ArrayList <AlphaParticle> alphaparticles;
+	ParticleComponent alphaparticles;
 
 	double cannonX;
 	double cannonY;
@@ -27,12 +29,12 @@ public class ParticleCannon implements ParticleCreator, Drawable {
 
 	AlphaParticleFactory pf;
 
-	public ParticleCannon (double x, double y, ArrayList <AlphaParticle> alphaParticles) {
+	public ParticleCannon (double x, double y, ParticleComponent alphaParticles, ParticleComponent neighbors) {
 		//		this.scene = scene;
 		this.cannonX = x;
 		this.cannonY = y;
 		this.alphaparticles = alphaParticles;
-		pf = new AlphaParticleFactory(this, new CollisionData());
+		pf = new AlphaParticleFactory(this, new CollisionData(), neighbors);
 	}
 
 	public double getX() {
@@ -85,8 +87,8 @@ public class ParticleCannon implements ParticleCreator, Drawable {
 	}
 
 	public void create() {
-		AlphaParticle newParticle = pf.create();
-		alphaparticles.add(pf.create());
+		ParticleComponent newParticle = pf.create();
+		alphaparticles.add(newParticle);
 	}
 	
 //	public void handle(MouseEvent e)

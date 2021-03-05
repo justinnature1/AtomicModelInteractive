@@ -1,15 +1,15 @@
 package application.templateMethod;
 
-import application.observer.Particle;
+import application.observer.ParticleComponent;
 
 public class ElectricalCollision extends Move {
 
-	public ElectricalCollision(Particle particle, double xSpeed, double ySpeed) {
+	public ElectricalCollision(ParticleComponent particle, double xSpeed, double ySpeed) {
 		super(particle, xSpeed, ySpeed);
 	}
 
 	@Override
-	public void setAcceleration(Particle neighbor) {
+	public void setAcceleration(ParticleComponent neighbor) {
 		double distance = Physics.distanceBetween(particle.getX(), 
 				particle.getY(), 
 				neighbor.getX(), 
@@ -38,7 +38,6 @@ public class ElectricalCollision extends Move {
 						force, 
 						radians),
 				particle.getMass());
-		
 		double totAcc = Physics.hypothenuseLen(
 				this.xAcc, 
 				this.yAcc);

@@ -7,7 +7,7 @@ public class CollisionData implements Observer{
 
 	
 	@Override
-	public void update(Particle particle) {
+	public void update(ParticleComponent particle) {
 		this.particleNumber = particleCount++;
 		if (data.length>particleNumber-1) {
 			data[particleNumber-1] = particle.isCollision();

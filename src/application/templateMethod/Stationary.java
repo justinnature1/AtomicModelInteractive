@@ -1,15 +1,16 @@
 package application.templateMethod;
 
-import application.observer.Particle;
+import application.observer.ParticleComponent;
 
 public class Stationary extends Move {
 
-	public Stationary(Particle particle) {
+	public Stationary(ParticleComponent particle) {
 		super(particle, 0, 0);
 	}
 	
-	protected void setAcceleration(Particle neighbor) {
-		//Do Nothing as the Acceleration and Speed need to stay zero.
+	protected void setAcceleration(ParticleComponent neighbor) {
+		this.xAcc = 0;
+		this.yAcc = 0;
 	}
 	
 }

@@ -10,12 +10,13 @@ public class AlphaParticle extends Particle implements Subject {
 	List<Observer> observers;
 	private static CollisionData collisionData = new CollisionData();
 
-	public AlphaParticle(double x, double y, double xSpeed, double ySpeed) {
+	public AlphaParticle(double x, double y, double xSpeed, double ySpeed, ParticleComponent neighbors) {
 		super(x, y);
 		this.move = new ElectricalCollision(this, xSpeed, ySpeed);
 		this.image = new Image ("file:alpha.png");
 		this.setCharge(this.getCharge() * 2);
 		this.setMass(this.getMass() * 4);
+		this.neighbors = neighbors;
 		observers = Collections.synchronizedList(new ArrayList<Observer>());
 	}
 
@@ -31,8 +32,8 @@ public class AlphaParticle extends Particle implements Subject {
 	}
 
 	@Override
-	
-	public void notifyObservers(Particle particle) {
+
+	public void notifyObservers(ParticleComponent particle) {
 		synchronized(observers) {
 			for (Observer o : observers) {
 				o.update(this);
@@ -41,7 +42,9 @@ public class AlphaParticle extends Particle implements Subject {
 	}
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.strokeOval(getX(), getY(), 5, 5);
-		gc.fillOval(getX(), getY(), 5, 5);
+		if (active) {
+			gc.strokeOval(getX()-3, getY()-3, 6, 6);
+			gc.fillOval(getX()-3, getY()-3, 6, 6);
+		}
 	}
 }

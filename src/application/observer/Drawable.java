@@ -1,4 +1,4 @@
-package application.factory;
+package application.observer;
 
 import javafx.scene.canvas.GraphicsContext;
 

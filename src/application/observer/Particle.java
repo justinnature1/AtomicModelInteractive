@@ -1,13 +1,10 @@
 package application.observer;
 
-import java.util.ArrayList;
-
-import application.factory.Drawable;
 import application.templateMethod.Move;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public abstract class Particle implements Drawable, Subject {
+public abstract class Particle extends ParticleComponent implements Subject {
 	
 	protected double x;
 	protected double y;
@@ -16,15 +13,25 @@ public abstract class Particle implements Drawable, Subject {
 	private double charge = 1.6E-19;
 	private double mass = 1.67E-27;
 	protected boolean active = true;
-	private boolean isCollision = false;
+	protected boolean isCollision = false;
+	protected ParticleComponent neighbors = new NoParticles();
 	
 	public Particle(double x, double y){
 		this.x = x;
 		this.y = y;
 	}
 	
-	public void move (Particle neighbor, double elapsedTime) {
-		this.move.move(neighbor, elapsedTime);
+	public ParticleComponent getNeighbor() {
+		return this.neighbors;
+	}
+	
+	public void setNeighbor(ParticleComponent neighbors) {
+		this.neighbors = neighbors;
+	}
+	
+	public void move (double elapsedTime) {
+		if (active)
+			this.move.move(elapsedTime);
 	}
 	
 	public double getX() {
@@ -59,7 +66,7 @@ public abstract class Particle implements Drawable, Subject {
 	}
 
 	@Override
-	public void notifyObservers(Particle particle) {
+	public void notifyObservers(ParticleComponent particle) {
 		//Default:Do Nothing
 	}
 	

@@ -1,18 +1,18 @@
 package application.templateMethod;
 
-import application.observer.Particle;
+import application.observer.ParticleComponent;
 
 public class Path extends Move {
 	private double xOrigin;
 	private double yOrigin;
 	
-	public Path(Particle particle, double xSpeed, double ySpeed) {
+	public Path(ParticleComponent particle, double xSpeed, double ySpeed) {
 		super(particle, xSpeed, ySpeed);
 		xOrigin = particle.getX();
 		yOrigin = particle.getY();
 	}
 
-	void setAcceleration(Particle neighbor) {
+	void setAcceleration(ParticleComponent neighbor) {
 		if (particle.getX() - xOrigin > 25)
 			xAcc = -5;
 		else if (particle.getX() - xOrigin < -25)
