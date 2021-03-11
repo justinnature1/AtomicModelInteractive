@@ -1,4 +1,4 @@
-package application.observer;
+package application.observerAndComposite;
 
 public interface Subject {
 	public void registerObserver (Observer o);

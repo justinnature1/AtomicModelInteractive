@@ -1,55 +1,99 @@
 package mvc;
 
+import application.observerAndComposite.ParticleComponent;
+import application.templateMethod.Physics;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import application.observerAndComposite.AlphaParticle;
 
 public class Controller implements ControllerInterface {
 	View view;
-	Level level;
-	
-	public Controller (Level level) {
-		this.level = level;
+	Experiment experiment;
+
+	public Controller (Experiment experiment) {
+		this.experiment = experiment;
 		view = new View(this);
 		Platform.startup(() -> {//launch JavaFx application 
 			Stage stage = new Stage();
 			try {
 				view.start(stage);
+				view.setGameInstructions(experiment.getInstructions());
 			} catch (Exception ex) {ex.printStackTrace();}
 		});		
-	}
-	
 
-//	public Controller(Level level, View view) {
-//		this.view = view;
-//		this.level = level;
-//	}
-	
+	}
+
+
 	@Override
-	public void shootParticle() {
-		level.cannon.create();		
+	public void shootParticle() {	
+		ParticleComponent newParticle = experiment.cannon.create();
+		newParticle.registerObserver(view.collisionData);	
+	}
+
+	public void initializeLevel() {
+		view.newCollisionData();
+		view.setGameInstructions(experiment.getInstructions());
+		AlphaParticle.resetParticleNumber();
+		//		experiment.cannon.set
 	}
 
 	@Override
 	public void collectData() {
-		// TODO Auto-generated method stub
-		
+		// Future method to allow the user to determine if a collision happened.
 	}
-	
+
 	@Override
 	public void update() {
-		if (!(level == null && view.getGc()==null && view.getElapsedTime()==0)) {
-			level.update(view.getGc(), view.getElapsedTime());
+		if (!(experiment == null && view.getGc()==null && view.getElapsedTime()==0)) {
+			experiment.update(view.getGc(), view.getElapsedTime());
 		}
 	}
 
 	public void handle(MouseEvent e) {
-		level.cannon.setMouseX(e.getX());
-		level.cannon.setMouseY(e.getY());
+		double cannonAngle = Physics.getAngle(experiment.cannon.getX(), experiment.cannon.getY(), e.getX(), e.getY());
+		if (cannonAngle > 50 && cannonAngle < 130) {
+			experiment.cannon.setMouseX(e.getX());
+			experiment.cannon.setMouseY(e.getY());
+		}
 		if (e.isPrimaryButtonDown())
 			shootParticle();
 	}
-	
+
+
+	@Override
+	public void handleClickedExperiment1(ActionEvent e) {
+		this.experiment = new Experiment1();
+		this.initializeLevel();		
+	}
+
+
+	@Override
+	public void handleClickedExperiment2(ActionEvent e) {
+		this.experiment = new Experiment2();
+		this.initializeLevel();
+	}
+
+
+	@Override
+	public void handleClickedExperiment3(ActionEvent e) {
+		this.experiment = new Experiment3();
+		this.initializeLevel();
+	}
+
+
+	@Override
+	public void handleClickedExperiment4(ActionEvent e) {
+		this.experiment = new Experiment4();
+		this.initializeLevel();
+	}
+
+
+	@Override
+	public void handleClickedExperiment5(ActionEvent e) {
+		this.experiment = new Experiment5();
+		this.initializeLevel();
+	}
+
 }

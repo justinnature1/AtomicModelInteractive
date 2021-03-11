@@ -1,6 +1,6 @@
 package application.templateMethod;
 
-import application.observer.ParticleComponent;
+import application.observerAndComposite.ParticleComponent;
 
 public class Stationary extends Move {
 

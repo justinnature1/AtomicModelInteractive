@@ -1,7 +1,7 @@
 package application.factory;
 
-import application.observer.Nucleus;
-import application.observer.Particle;
+import application.observerAndComposite.Nucleus;
+import application.observerAndComposite.Particle;
 
 public class NucleusFactory extends ParticleFactory {
 
@@ -14,7 +14,7 @@ public class NucleusFactory extends ParticleFactory {
 
 	@Override
 	public Particle create() {
-			return new Nucleus(pc.getX(), pc.getY(), this.isMoveable());
+		return new Nucleus(pc.getX(), pc.getY(), this.moveable);
 	}
 
 	public boolean isMoveable() {

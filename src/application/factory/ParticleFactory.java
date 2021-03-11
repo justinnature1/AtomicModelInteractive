@@ -1,7 +1,6 @@
 package application.factory;
 
-import application.observer.Particle;
-import application.observer.ParticleComponent;
+import application.observerAndComposite.ParticleComponent;
 
 public abstract class ParticleFactory {
 	

@@ -1,15 +1,13 @@
 package application.factory;
 
-import java.util.ArrayList;
-
-import application.observer.AlphaParticle;
-import application.observer.CollisionData;
-import application.observer.Drawable;
-import application.observer.ParticleComponent;
+import application.observerAndComposite.Drawable;
+import application.observerAndComposite.ParticleComponent;
 import application.templateMethod.Physics;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 
 public class ParticleCannon implements ParticleCreator, Drawable {
 	//	Scene scene;
@@ -25,16 +23,15 @@ public class ParticleCannon implements ParticleCreator, Drawable {
 	double diffX = 0;
 	double diffY = 0;
 
-	double fireSpeed = 75;
+	double fireSpeed = 175;
 
 	AlphaParticleFactory pf;
 
 	public ParticleCannon (double x, double y, ParticleComponent alphaParticles, ParticleComponent neighbors) {
-		//		this.scene = scene;
 		this.cannonX = x;
 		this.cannonY = y;
 		this.alphaparticles = alphaParticles;
-		pf = new AlphaParticleFactory(this, new CollisionData(), neighbors);
+		pf = new AlphaParticleFactory(this, neighbors);
 	}
 
 	public double getX() {
@@ -86,9 +83,10 @@ public class ParticleCannon implements ParticleCreator, Drawable {
 		return (this.fireSpeed*this.diffY/Physics.hypothenuseLen(diffX, diffY));
 	}
 
-	public void create() {
+	public ParticleComponent create() {
 		ParticleComponent newParticle = pf.create();
 		alphaparticles.add(newParticle);
+		return newParticle;
 	}
 	
 //	public void handle(MouseEvent e)
@@ -101,12 +99,18 @@ public class ParticleCannon implements ParticleCreator, Drawable {
 //	}
 
 	public void draw(GraphicsContext gc) {
+        
 		gc.save();
 		gc.translate(this.cannonX, this.cannonY);
 		gc.rotate(Physics.getAngle(cannonX, cannonY, mouseX, mouseY));
 		gc.translate(-this.cannonX, -this.cannonY);
 
-		gc.fillRect(cannonX-20, cannonY-5, 20, 10);
+		Stop[] stops = new Stop[] { new Stop(0, Color.BLACK), new Stop(.5, Color.LIGHTGREY), new Stop(1, Color.BLACK)};
+        LinearGradient lg1 = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, stops);
+        
+        gc.setFill(lg1);
+		//gc.setFill(Color.LIGHTGREY);
+		gc.fillRect(cannonX-20, cannonY-7, 20, 14);
 		gc.restore();
 	}
 

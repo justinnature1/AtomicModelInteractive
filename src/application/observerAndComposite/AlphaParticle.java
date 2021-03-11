@@ -1,23 +1,25 @@
-package application.observer;
+package application.observerAndComposite;
 
 import java.util.*;
-
 import application.templateMethod.ElectricalCollision;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class AlphaParticle extends Particle implements Subject {
+	protected static int particleCount = 1;
+	protected int rotationAngle = 0;
 	List<Observer> observers;
-	private static CollisionData collisionData = new CollisionData();
 
 	public AlphaParticle(double x, double y, double xSpeed, double ySpeed, ParticleComponent neighbors) {
 		super(x, y);
+		this.particleNumber = particleCount++;
 		this.move = new ElectricalCollision(this, xSpeed, ySpeed);
 		this.image = new Image ("file:alpha.png");
 		this.setCharge(this.getCharge() * 2);
 		this.setMass(this.getMass() * 4);
 		this.neighbors = neighbors;
-		observers = Collections.synchronizedList(new ArrayList<Observer>());
+		observers = new ArrayList<Observer>();
 	}
 
 
@@ -40,11 +42,28 @@ public class AlphaParticle extends Particle implements Subject {
 			}
 		}
 	}
+
+	public static void resetParticleNumber() {
+		particleCount = 1;
+	}
+	
 	@Override
 	public void draw(GraphicsContext gc) {
 		if (active) {
-			gc.strokeOval(getX()-3, getY()-3, 6, 6);
-			gc.fillOval(getX()-3, getY()-3, 6, 6);
+			int radius = 6;
+			int centerX = (int)getX()-radius/2;
+			int centerY = (int)getY()-radius/2;
+
+			for (int i = 0; i < 4; i++) {
+				if(i % 2 == 1)
+					gc.setFill(Color.RED);
+				else
+					gc.setFill(Color.BLUE);
+				int drawAngle = (rotationAngle + i * 90) % 360;
+				gc.strokeOval(centerX + 2*Math.cos(drawAngle), centerY + 2*Math.sin(drawAngle), radius, radius);
+				gc.fillOval(centerX + 2*Math.cos(drawAngle), centerY + 2*Math.sin(drawAngle), radius, radius);
+			}
+			this.rotationAngle +=45;
 		}
 	}
 }

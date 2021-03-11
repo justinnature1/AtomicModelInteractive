@@ -1,4 +1,4 @@
-package application.observer;
+package application.observerAndComposite;
 
 import javafx.scene.canvas.GraphicsContext;
 

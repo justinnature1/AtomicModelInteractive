@@ -1,4 +1,4 @@
-package application.observer;
+package application.observerAndComposite;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +11,7 @@ public class NoParticles extends ParticleComponent{
 	List<ParticleComponent> list;
 
 	public NoParticles () {
-		list = Collections.synchronizedList(new ArrayList<ParticleComponent>()); 
+		list = new ArrayList<ParticleComponent>(); 
 	}
 	
 	@Override

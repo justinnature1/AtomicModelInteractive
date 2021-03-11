@@ -1,8 +1,8 @@
 package application.factory;
 
-import application.observer.AlphaParticle;
-import application.observer.CollisionData;
-import application.observer.ParticleComponent;
+import application.observerAndComposite.AlphaParticle;
+import application.observerAndComposite.CollisionData;
+import application.observerAndComposite.ParticleComponent;
 
 public class AlphaParticleFactory extends ParticleFactory{
 	CollisionData collisionData;
@@ -10,18 +10,15 @@ public class AlphaParticleFactory extends ParticleFactory{
 	
 	public AlphaParticleFactory(
 			ParticleCreator particleCreator, 
-			CollisionData collisionData, 
 			ParticleComponent neighbors) 
 	{
 		super(particleCreator);
-		this.collisionData = collisionData;
 		this.neighbors = neighbors;
 	}
 	
 	@Override
 	public ParticleComponent create() {
 		ParticleComponent newAP = new AlphaParticle(pc.getX(), pc.getY(), pc.getXSpeed(), pc.getYSpeed(), this.neighbors);
-		newAP.registerObserver(collisionData);
 		return newAP;
 	}
 		 

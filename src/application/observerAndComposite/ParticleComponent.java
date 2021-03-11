@@ -1,4 +1,4 @@
-package application.observer;
+package application.observerAndComposite;
 
 import java.util.Iterator;
 

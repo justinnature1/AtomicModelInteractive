@@ -1,11 +1,11 @@
-package application.observer;
+package application.observerAndComposite;
 
 import application.templateMethod.Move;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class Particle extends ParticleComponent implements Subject {
-	
+	protected int particleNumber;
 	protected double x;
 	protected double y;
 	protected Move move;
@@ -19,6 +19,10 @@ public abstract class Particle extends ParticleComponent implements Subject {
 	public Particle(double x, double y){
 		this.x = x;
 		this.y = y;
+	}
+	
+	public int getParticleNumber () {
+		return this.particleNumber;
 	}
 	
 	public ParticleComponent getNeighbor() {
@@ -35,7 +39,7 @@ public abstract class Particle extends ParticleComponent implements Subject {
 	}
 	
 	public double getX() {
-		if (active && (x < 0 || x > 500)) {
+		if (active && (x < 0 || x > 512)) {
 			active = false;
 			notifyObservers(this);
 		}
@@ -45,7 +49,7 @@ public abstract class Particle extends ParticleComponent implements Subject {
 		this.x = x;
 	}
 	public double getY() {
-		if (active && (y < 0 || y > 500)) {
+		if (active && (y < 0 || y > 512)) {
 			active = false;
 			notifyObservers(this);
 		}

@@ -1,4 +1,4 @@
-package application.observer;
+package application.observerAndComposite;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +12,7 @@ public class Particles extends ParticleComponent{
 	ParticleComponent neighbor = new NoParticles();
 
 	public Particles () {
-		list = Collections.synchronizedList(new ArrayList<ParticleComponent>()); 
+		list = new ArrayList<ParticleComponent>(); 
 	}
 
 	public Particles (ParticleComponent neighbor) {

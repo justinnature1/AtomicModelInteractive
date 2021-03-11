@@ -1,6 +1,6 @@
 package application.templateMethod;
 
-import application.observer.ParticleComponent;
+import application.observerAndComposite.ParticleComponent;
 
 public class ElectricalCollision extends Move {
 
@@ -10,39 +10,35 @@ public class ElectricalCollision extends Move {
 
 	@Override
 	public void setAcceleration(ParticleComponent neighbor) {
-		double distance = Physics.distanceBetween(particle.getX(), 
-				particle.getY(), 
-				neighbor.getX(), 
-				neighbor.getY());
-		
-		double force = Physics.electricalForce(
-				particle.getCharge(), 
-				neighbor.getCharge(), 
-				distance/100);
-		
-		double radians = Physics.getAngle(
-				particle.getX(), 
-				particle.getY(), 
-				neighbor.getX(), 
-				neighbor.getY()
-				)*Math.PI/180;
-		
-		this.xAcc = Physics.acceleration(
-				Physics.xComponent(
-						force, 
-						radians),
-				particle.getMass());
-		
-		this.yAcc = Physics.acceleration(
-				Physics.yComponent(
-						force, 
-						radians),
-				particle.getMass());
-		double totAcc = Physics.hypothenuseLen(
-				this.xAcc, 
-				this.yAcc);
-		if (totAcc>50 && particle.isCollision() == false) {
-			particle.setCollision(true);
+		if (neighbor != null) {
+			double distance = Physics.distanceBetween(particle.getX(), 
+					particle.getY(), 
+					neighbor.getX(), 
+					neighbor.getY());
+
+			double force = Physics.electricalForce(
+					particle.getCharge(), 
+					neighbor.getCharge(), 
+					distance/100);
+
+			double radians = Physics.getAngle(
+					particle.getX(), 
+					particle.getY(), 
+					neighbor.getX(), 
+					neighbor.getY()
+					)*Math.PI/180;
+
+			this.xAcc += Physics.acceleration(
+					Physics.xComponent(
+							force, 
+							radians),
+					particle.getMass());
+
+			this.yAcc += Physics.acceleration(
+					Physics.yComponent(
+							force, 
+							radians),
+					particle.getMass());
 		}
 	}
 

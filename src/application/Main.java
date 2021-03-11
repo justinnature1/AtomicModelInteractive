@@ -1,13 +1,13 @@
 package application;
 
 import mvc.Controller;
-import mvc.Level;
-import mvc.LevelOne;
+import mvc.Experiment;
+import mvc.Experiment1;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Level level = new LevelOne();
+		Experiment level = new Experiment1();
 		Controller controller = new Controller(level);
 	}
 }
