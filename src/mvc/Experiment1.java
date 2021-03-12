@@ -10,7 +10,7 @@ public class Experiment1 extends Experiment {
 				"To start off, use the mouse to shoot some particles at the solid particle in the middle of the " +
 				"screen. \n" +
 				"1. Get familiar with shooting alpha particles and how they interact with the particle in the screen.\n" +
-				"2. Pay attention to when a particle collides (true) or doesn't collide (false).  The data table and graph will " +
+				"2. Pay attention to when a particle collides or doesn't collide.  The data table and graph will " +
 				"be helpful in further experiments.\n" +
 				"3. The next several experiments will let you collect data to figure out if an atom is solid, empty " + 
 				"space, or somewhere in between.";

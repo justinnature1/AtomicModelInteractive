@@ -4,6 +4,7 @@ import application.observerAndComposite.ParticleComponent;
 import application.templateMethod.Physics;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import application.observerAndComposite.AlphaParticle;
@@ -20,9 +21,9 @@ public class Controller implements ControllerInterface {
 			try {
 				view.start(stage);
 				view.setGameInstructions(experiment.getInstructions());
+				view.setButtonPress(view.experiment1);
 			} catch (Exception ex) {ex.printStackTrace();}
 		});		
-
 	}
 
 
@@ -65,7 +66,8 @@ public class Controller implements ControllerInterface {
 	@Override
 	public void handleClickedExperiment1(ActionEvent e) {
 		this.experiment = new Experiment1();
-		this.initializeLevel();		
+		this.initializeLevel();
+		view.setButtonPress((Button)e.getSource());
 	}
 
 
@@ -73,6 +75,7 @@ public class Controller implements ControllerInterface {
 	public void handleClickedExperiment2(ActionEvent e) {
 		this.experiment = new Experiment2();
 		this.initializeLevel();
+		view.setButtonPress((Button)e.getSource());
 	}
 
 
@@ -80,6 +83,7 @@ public class Controller implements ControllerInterface {
 	public void handleClickedExperiment3(ActionEvent e) {
 		this.experiment = new Experiment3();
 		this.initializeLevel();
+		view.setButtonPress((Button)e.getSource());
 	}
 
 
@@ -87,6 +91,7 @@ public class Controller implements ControllerInterface {
 	public void handleClickedExperiment4(ActionEvent e) {
 		this.experiment = new Experiment4();
 		this.initializeLevel();
+		view.setButtonPress((Button)e.getSource());
 	}
 
 
@@ -94,6 +99,7 @@ public class Controller implements ControllerInterface {
 	public void handleClickedExperiment5(ActionEvent e) {
 		this.experiment = new Experiment5();
 		this.initializeLevel();
+		view.setButtonPress((Button)e.getSource());
 	}
 
 }

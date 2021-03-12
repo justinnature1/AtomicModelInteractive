@@ -48,7 +48,7 @@ public class CollisionData implements Observer{
 		xAxis.setLabel("Collision");
 
 		NumberAxis yAxis = new NumberAxis();
-		yAxis.setLabel("Frequency");
+		yAxis.setLabel("Percent of Particles");
 		yAxis.setLowerBound(0);
 		yAxis.setUpperBound(100);
 		yAxis.setMinSize(0, 100);
@@ -62,8 +62,8 @@ public class CollisionData implements Observer{
 		barChart.setLegendVisible(false);
 		//	barChart.set
 
-		collisionData = new XYChart.Data<>("true", (Integer)0);
-		noCollisionData = new XYChart.Data<>("false", (Integer)0);
+		collisionData = new XYChart.Data<>("Collision", (Integer)0);
+		noCollisionData = new XYChart.Data<>("No Collision", (Integer)0);
 		//		data.setValue(true);;
 		series.getData().addAll(collisionData, noCollisionData);
 		barChart.getData().add(series);
@@ -99,6 +99,14 @@ public class CollisionData implements Observer{
 		this.totalCount = 0;
 	}
 
+	public int getTotalCount() {
+		return this.totalCount;
+	}
+	
+	public int getCollisionCount() {
+		return this.collisionCount;
+	}
+
 	private void setTotalCount(ParticleComponent particle) {
 		this.totalCount++;
 		if (particle.isCollision())
@@ -112,11 +120,11 @@ public class CollisionData implements Observer{
 		dataTable.sort();
 		Double percent;
 		percent = (double)this.collisionCount/this.totalCount*100;
-		collisionData.setXValue("true");
+		collisionData.setXValue("Collision");
 		collisionData.setYValue(percent.intValue());
 
 		percent = (double)(this.totalCount-this.collisionCount)/this.totalCount*100;
-		noCollisionData.setXValue("false");
+		noCollisionData.setXValue("No Collision");
 		noCollisionData.setYValue(percent.intValue());
 	}
 }

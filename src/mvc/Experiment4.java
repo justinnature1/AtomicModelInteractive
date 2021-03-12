@@ -10,12 +10,13 @@ public class Experiment4 extends Experiment {
 
 	public Experiment4() {
 		super("levelFourParticles");
-		instructions = "The year is 1900. J.J. Thomson had collected evidence to support Lord Kelvin's model of an atom. "
-				+ "This model was known as the 'Plum Pudding Model' and was described as having equally dispersed positive charges "
-				+ "to conteract the recently discovered negative particles called elctrons.  This experiment matches the expected "
-				+ "results of this model when particles are shot at a layer of atoms.\n"
-				+ "1. Shoot particles at this plum pudding model of the atom.\n"
-				+ "2. Does the plum pudding model represent an atomic model that is solid, empty space, or somewhere in between?";
+		instructions = "The year is 1900. J.J. Thomson collected evidence to support the most recent "
+				+ "model of an atom known as the 'Plum Pudding Model'. This model had positive charges "
+				+ "in a sea of recently discovered negative charges called electrons.  On your screen, you see the plum pudding model. "
+				+ "Just like scientists can't see atoms, you can't see the atoms here either. Let the data help you 'see'.\n"
+				+ "1. Shoot particles at the plum pudding model of the atom.\n"
+				+ "2. The data you collect shows the expected results of the plum pudding model. " 
+				+ "Is this model of an atom solid, empty space, or somewhere in between?";
 	}
 
 	public void draw(GraphicsContext gc) {

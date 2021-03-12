@@ -3,7 +3,6 @@ package application.observerAndComposite;
 import java.util.*;
 import application.templateMethod.ElectricalCollision;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class AlphaParticle extends Particle implements Subject {
@@ -15,7 +14,6 @@ public class AlphaParticle extends Particle implements Subject {
 		super(x, y);
 		this.particleNumber = particleCount++;
 		this.move = new ElectricalCollision(this, xSpeed, ySpeed);
-		this.image = new Image ("file:alpha.png");
 		this.setCharge(this.getCharge() * 2);
 		this.setMass(this.getMass() * 4);
 		this.neighbors = neighbors;
@@ -35,7 +33,7 @@ public class AlphaParticle extends Particle implements Subject {
 
 	@Override
 
-	public void notifyObservers(ParticleComponent particle) {
+	public void notifyObservers() {
 		synchronized(observers) {
 			for (Observer o : observers) {
 				o.update(this);

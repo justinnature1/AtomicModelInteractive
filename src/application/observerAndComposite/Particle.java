@@ -21,6 +21,10 @@ public abstract class Particle extends ParticleComponent implements Subject {
 		this.y = y;
 	}
 	
+	public Move getMove() {
+		return this.move;
+	}
+	
 	public int getParticleNumber () {
 		return this.particleNumber;
 	}
@@ -39,23 +43,23 @@ public abstract class Particle extends ParticleComponent implements Subject {
 	}
 	
 	public double getX() {
-		if (active && (x < 0 || x > 512)) {
-			active = false;
-			notifyObservers(this);
-		}
 		return x;
 	}
 	public void setX(double x) {
+		if (active && (x < 0 || x > 512)) {
+			active = false;
+			notifyObservers();
+		}
 		this.x = x;
 	}
 	public double getY() {
-		if (active && (y < 0 || y > 512)) {
-			active = false;
-			notifyObservers(this);
-		}
 		return y;
 	}
 	public void setY(double y) {
+		if (active && (y < 0 || y > 512)) {
+			active = false;
+			notifyObservers();
+		}
 		this.y = y;
 	}
 	
@@ -70,7 +74,7 @@ public abstract class Particle extends ParticleComponent implements Subject {
 	}
 
 	@Override
-	public void notifyObservers(ParticleComponent particle) {
+	public void notifyObservers() {
 		//Default:Do Nothing
 	}
 	
@@ -99,5 +103,9 @@ public abstract class Particle extends ParticleComponent implements Subject {
 
 	public void setMass(double mass) {
 		this.mass = mass;
+	}
+	
+	public boolean isActive() {
+		return this.active;
 	}
 }

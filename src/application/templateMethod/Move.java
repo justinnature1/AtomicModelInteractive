@@ -56,6 +56,10 @@ public abstract class Move {
 	
 	abstract void setAcceleration(ParticleComponent neighbor);
 
+	public String getMoveName () {
+		return this.getClass().getSimpleName();
+	}
+	
 	protected void changeSpeed (double time) {
 		xSpeed = xSpeed + xAcc * time;
 		ySpeed = ySpeed + yAcc * time;

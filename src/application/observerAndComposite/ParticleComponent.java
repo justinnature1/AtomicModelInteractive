@@ -9,7 +9,7 @@ public abstract class ParticleComponent implements Drawable, Subject {
 	public int getParticleNumber() {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	public ParticleComponent getNeighbor() {
 		throw new UnsupportedOperationException();
 	}
@@ -89,7 +89,7 @@ public abstract class ParticleComponent implements Drawable, Subject {
 	}
 
 	@Override
-	public void notifyObservers(ParticleComponent particle) {
+	public void notifyObservers() {
 		throw new UnsupportedOperationException();	
 	}
 
