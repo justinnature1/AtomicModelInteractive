@@ -1,9 +1,13 @@
 package application.observerAndComposite;
 
 import java.util.Iterator;
-
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * This class creates an interface for all particle classes to use.  It creates the framework for the composite pattern
+ * that manages collections of particles or individual particles.
+ * @author Justin Keller
+ */
 public abstract class ParticleComponent implements Drawable, Subject {
 
 	public int getParticleNumber() {

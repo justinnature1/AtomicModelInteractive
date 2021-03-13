@@ -1,20 +1,32 @@
 package application.observerAndComposite;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * This class allows collections of particles to be created.  The move and draw method will move and draw a collection
+ * of particles with one call
+ * @author Justin Keller
+ */
 public class Particles extends ParticleComponent{
-	List<ParticleComponent> list;
+	List<ParticleComponent> list;//Manages the collection of particles
+
+	//References the neighbors of a collection of particles to interact/collide with
 	ParticleComponent neighbor = new NoParticles();
 
+	/**
+	 * Creates a collection of particles with no neighbors
+	 */
 	public Particles () {
 		list = new ArrayList<ParticleComponent>(); 
 	}
 
+	/**
+	 * Creates a collection of particles that share a common set of neighbors to interact with
+	 * @param neighbor A reference to the neighbors the particles interact/collide with.
+	 */
 	public Particles (ParticleComponent neighbor) {
 		this(); 
 		this.neighbor = neighbor;
@@ -40,7 +52,11 @@ public class Particles extends ParticleComponent{
 		return (ParticleComponent)list.get(i);
 	}
 
-	@Override
+	/**
+	 * Iterates through a collection of particles and handles the movement of each individual component
+	 * @param elapsedTime The amount of time that the movement has occurred for. 
+	 * @Override
+	 */
 	public void move(double elapsedTime) {
 		synchronized(list) { 
 			Iterator<ParticleComponent> it = list.iterator();           
@@ -52,32 +68,11 @@ public class Particles extends ParticleComponent{
 		}
 	} 
 
-
-	//	@Override
-	//	public double getX() {
-	//		// TODO Auto-generated method stub
-	//		return 0;
-	//	}
-
-	//	@Override
-	//	public void setX(double x) {
-	//		// TODO Auto-generated method stub
-	//
-	//	}
-
-	//	@Override
-	//	public double getY() {
-	//		// TODO Auto-generated method stub
-	//		return 0;
-	//	}
-
-	//	@Override
-	//	public void setY(double y) {
-	//		// TODO Auto-generated method stub
-	//
-	//	}
-
-	@Override
+	/**
+	 * Iterates through a collection of particles and handles the drawing of each individual component
+	 * @param gc The graphics context to draw the particles on 
+	 * @Override
+	 */
 	public void draw(GraphicsContext gc) {
 		synchronized(list) { 
 			Iterator<ParticleComponent> it = list.iterator();           
@@ -85,30 +80,6 @@ public class Particles extends ParticleComponent{
 				it.next().draw(gc);
 		} 
 	}
-
-	//	@Override
-	//	public boolean isCollision() {
-	//		// TODO Auto-generated method stub
-	//		return false;
-	//	}
-
-	//	@Override
-	//	public void setCollision(boolean isCollision) {
-	//		// TODO Auto-generated method stub
-	//
-	//	}
-
-	//	@Override
-	//	public double getMass() {
-	//		// TODO Auto-generated method stub
-	//		return 0;
-	//	}
-
-	//	@Override
-	//	public double getCharge() {
-	//		// TODO Auto-generated method stub
-	//		return 0;
-	//	}
 
 	@Override
 	public Iterator<ParticleComponent> getIterator(){

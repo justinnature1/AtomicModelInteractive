@@ -1,6 +1,5 @@
 package mvc;
 
-import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -10,9 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
-
 import java.util.ArrayList;
-
 import application.observerAndComposite.CollisionData;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
@@ -22,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
-public class View extends Application {
+public class View {
 
 	Stage stage;
 	HBox root;
